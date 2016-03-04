@@ -1,0 +1,26 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "SimpleEncrypt.Decryptor Console Application",
+  "authors": [ "Colin Scott", "Karthik Padmanabhan" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+
+  "compilationOptions": {
+    "emitEntryPoint": true
+  },
+
+  "dependencies": {
+    "AWSSDK.KeyManagementService": "3.1.1.2",
+    "NDesk.Options": "0.2.1",
+    "SimpleEncrypt": "1.0.0-*"
+  },
+
+  "commands": {
+    "SimpleEncrypt.Decryptor": "SimpleEncrypt.Decryptor"
+  },
+
+  "frameworks": {
+    "dnx451": { }
+  }
+}
