@@ -13,7 +13,7 @@ namespace SimpleEncrypt.Decryptor
                 return;
             }
 
-            Console.WriteLine(SimpleEncryptClient.Decrypt(decryptorArgs.Value));
+            Console.WriteLine(decryptorArgs.Value.Decrypt(decryptorArgs.Region));
         }
     }
 

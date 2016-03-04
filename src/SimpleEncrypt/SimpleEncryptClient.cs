@@ -9,9 +9,9 @@ namespace SimpleEncrypt
 {
     public static class SimpleEncryptClient
     {
-        public static string Decrypt(string encryptedValue)
+        public static string Decrypt(this string encryptedValue, string regionName)
         {
-            var client = new AmazonKeyManagementServiceClient(RegionEndpoint.APSoutheast2);
+            var client = new AmazonKeyManagementServiceClient(RegionEndpoint.GetBySystemName(regionName));
 
             var ciphertestStream = new MemoryStream(Convert.FromBase64String(encryptedValue)) { Position = 0 };
 
@@ -26,9 +26,9 @@ namespace SimpleEncrypt
             return Encoding.UTF8.GetString(buffer);
         }
 
-        public static string Encrypt(string value, string key)
+        public static string Encrypt(this string value, string key, string regionName)
         {
-            var client = new AmazonKeyManagementServiceClient(RegionEndpoint.APSoutheast2);
+            var client = new AmazonKeyManagementServiceClient(RegionEndpoint.GetBySystemName(regionName));
 
             var plaintextData = new MemoryStream(Encoding.UTF8.GetBytes(value))
             {
