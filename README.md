@@ -15,22 +15,36 @@ This is inspired by [Shush](https://github.com/realestate-com-au/shush) but:
 * does not attempt to impose any structure on the value beyond being a UTF-8
 string
 
-### Encrypting on the command line
-
-```
-dnx -p <path to SimpleEncrypt.Encryptor> run -r <region> -k <AWS ID of key> -v <value to encrypt>
-```
-### Decrypting on the command line
-
-```
-dnx -p <path to SimpleEncrypt.Decryptor> run -r <region> -k <AWS ID of key> -v <value to decrypt>
-```
-
-### In-process
+### Using Simple encrypt in your code
 
 ```
 Install-Package SimpleEncrypt
 ```
+
+or
+
+`dnu install SimpleEncrypt`
+
+## Install Simple encrypt command line
+
+
+### Commands to install the package
+```
+dnu packages add .\src\artifacts\bin\SimpleEncrypt\Debug\SimpleEncrypt.1.0.0.nupkg
+dnu packages add .\src\artifacts\bin\SimpleEncrypt.Console\Debug\SimpleEncrypt.Console.1.0.0.nupkg
+
+dnu commands install SimpleEncrypt.Console -f c:\users\karthikp\.dnx\packages
+```
+
+TODO: dnu package add commands to be removed once the code is pushed to nuget.
+
+
+### Commands to uninstall the package
+
+```
+dnu commands uninstall sencrypt
+```
+
 
 #### Encryption
 
@@ -45,19 +59,3 @@ value to be decrypted encoded as a Base64 string. It takes the AWS ID of the key
 and returns the decrypted value as a string.
 
 
-## Steps for setting global commands
-
-
-Commands to install the package
-```
-dnu packages add .\src\artifacts\bin\SimpleEncrypt\Debug\SimpleEncrypt.1.0.0.nupkg
-dnu packages add .\src\artifacts\bin\SimpleEncrypt.Console\Debug\SimpleEncrypt.Console.1.0.0.nupkg
-
-dnu commands install SimpleEncrypt.Console -f c:\users\karthikp\.dnx\packages
-```
-
-Commands to uninstall the package
-
-```
-dnu commands uninstall sencrypt
-```
