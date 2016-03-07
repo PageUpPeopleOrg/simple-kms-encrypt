@@ -43,3 +43,25 @@ the key and returns the encrypted value encoded using Base64.
 The extension method `Decrypt` (in the `SimpleEncrypt` namespace) works on a
 value to be decrypted encoded as a Base64 string. It takes the AWS ID of the key
 and returns the decrypted value as a string.
+
+
+## Steps for setting global commands
+
+```
+dnu packages add .\SimpleEncrypt\Debug\SimpleEncrypt.1.0.0.nupkg
+
+dnu packages add .\SimpleEncrypt.Encryptor\Debug\SimpleEncrypt.Encryptor.1.0.0.nupkg
+
+dnu packages add .\SimpleEncrypt.Decryptor\Debug\SimpleEncrypt.Decryptor.1.0.0.nupkg
+
+dnu commands install SimpleEncrypt.Encryptor -f c:\users\karthikp\.dnx\packages
+
+dnu commands install SimpleEncrypt.Decryptor -f c:\users\karthikp\.dnx\packages
+```
+
+### Uninstall commands
+
+```
+dnu commands uninstall simply-encrypt
+dnu commands uninstall simply-decrypt
+```

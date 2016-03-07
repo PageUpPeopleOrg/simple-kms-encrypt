@@ -17,7 +17,7 @@
   },
 
   "commands": {
-    "SimpleEncrypt.Encryptor": "SimpleEncrypt.Encryptor"
+    "simply-encrypt": "SimpleEncrypt.Encryptor"
   },
 
   "frameworks": {
