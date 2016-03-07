@@ -41,7 +41,7 @@ and returns the decrypted value as a string.
 dnu packages add .\src\artifacts\bin\SimpleEncrypt\Debug\SimpleEncrypt.1.0.0.nupkg
 dnu packages add .\src\artifacts\bin\SimpleEncrypt.Console\Debug\SimpleEncrypt.Console.1.0.0.nupkg
 
-dnu commands install SimpleEncrypt.Console -f c:\users\karthikp\.dnx\packages
+dnu commands install SimpleEncrypt.Console -f c:\users\<user>\.dnx\packages
 ```
 
 TODO: dnu package add commands to be removed once the code is pushed to nuget.
