@@ -15,38 +15,13 @@ This is inspired by [Shush](https://github.com/realestate-com-au/shush) but:
 * does not attempt to impose any structure on the value beyond being a UTF-8
 string
 
-### Using Simple encrypt in your code
+## Using Simple encrypt in your code
 
-```
-Install-Package SimpleEncrypt
-```
-
+`Install-Package SimpleEncrypt`
 or
-
 `dnu install SimpleEncrypt`
 
-## Install Simple encrypt command line
-
-
-### Commands to install the package
-```
-dnu packages add .\src\artifacts\bin\SimpleEncrypt\Debug\SimpleEncrypt.1.0.0.nupkg
-dnu packages add .\src\artifacts\bin\SimpleEncrypt.Console\Debug\SimpleEncrypt.Console.1.0.0.nupkg
-
-dnu commands install SimpleEncrypt.Console -f c:\users\karthikp\.dnx\packages
-```
-
-TODO: dnu package add commands to be removed once the code is pushed to nuget.
-
-
-### Commands to uninstall the package
-
-```
-dnu commands uninstall sencrypt
-```
-
-
-#### Encryption
+### Encryption
 
 The extension method `Encrypt` (in the `SimpleEncrypt` namespace) works on a
 string value to be encrypted. It takes the AWS ID of the key and the region of
@@ -59,3 +34,34 @@ value to be decrypted encoded as a Base64 string. It takes the AWS ID of the key
 and returns the decrypted value as a string.
 
 
+## Install Simple encrypt command line
+
+### Commands to install the package
+```
+dnu packages add .\src\artifacts\bin\SimpleEncrypt\Debug\SimpleEncrypt.1.0.0.nupkg
+dnu packages add .\src\artifacts\bin\SimpleEncrypt.Console\Debug\SimpleEncrypt.Console.1.0.0.nupkg
+
+dnu commands install SimpleEncrypt.Console -f c:\users\karthikp\.dnx\packages
+```
+
+TODO: dnu package add commands to be removed once the code is pushed to nuget.
+
+### Command line usage
+
+encrypt
+
+`sencrypt encrypt -r ap-southeast-1 -k mykey -v myvalue`
+
+decrypt
+
+`sencrypt decrypt -r ap-southeast-1 -v random-encrypted-value`
+
+help
+
+`sencrypt help`
+
+### Commands to uninstall the package
+
+```
+dnu commands uninstall sencrypt
+```
