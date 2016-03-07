@@ -1,0 +1,27 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "SimpleEncrypt.Console Console Application",
+  "authors": [ "karthikp" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+
+  "compilationOptions": {
+    "emitEntryPoint": true
+  },
+
+    "dependencies": {
+        "AWSSDK.KeyManagementService": "3.1.1.2",
+        "CommandLineParser": "2.0.275-beta",
+        "NDesk.Options": "0.2.1",
+        "SimpleEncrypt": "1.0.0-*"
+    },
+
+  "commands": {
+    "sec": "SimpleEncrypt.Console"
+  },
+
+  "frameworks": {
+    "dnx451": { }    
+  }
+}
