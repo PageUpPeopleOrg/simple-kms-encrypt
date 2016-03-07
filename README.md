@@ -47,21 +47,17 @@ and returns the decrypted value as a string.
 
 ## Steps for setting global commands
 
+
+Commands to install the package
 ```
-dnu packages add .\SimpleEncrypt\Debug\SimpleEncrypt.1.0.0.nupkg
+dnu packages add .\src\artifacts\bin\SimpleEncrypt\Debug\SimpleEncrypt.1.0.0.nupkg
+dnu packages add .\src\artifacts\bin\SimpleEncrypt.Console\Debug\SimpleEncrypt.Console.1.0.0.nupkg
 
-dnu packages add .\SimpleEncrypt.Encryptor\Debug\SimpleEncrypt.Encryptor.1.0.0.nupkg
-
-dnu packages add .\SimpleEncrypt.Decryptor\Debug\SimpleEncrypt.Decryptor.1.0.0.nupkg
-
-dnu commands install SimpleEncrypt.Encryptor -f c:\users\karthikp\.dnx\packages
-
-dnu commands install SimpleEncrypt.Decryptor -f c:\users\karthikp\.dnx\packages
+dnu commands install SimpleEncrypt.Console -f c:\users\karthikp\.dnx\packages
 ```
 
-### Uninstall commands
+Commands to uninstall the package
 
 ```
-dnu commands uninstall simply-encrypt
-dnu commands uninstall simply-decrypt
+dnu commands uninstall sencrypt
 ```
