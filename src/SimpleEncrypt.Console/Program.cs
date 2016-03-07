@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using System;
 using CommandLine;
 using static System.Console;
 
@@ -8,43 +8,50 @@ namespace SimpleEncrypt.Console
     {
         public static void Main(string[] args)
         {
-            Error[] errors = null;
-
-            Parser.Default.ParseArguments<EncryptOptions, DecryptOptions>(args)
-                .WithParsed<EncryptOptions>(opts => opts.Value.Encrypt(opts.KeyId, opts.Region))
-                .WithParsed<DecryptOptions>(opts => opts.Value.Decrypt(opts.Region))
-                .WithNotParsed(errs => errors = errs.ToArray());
-            
-            if (errors != null && errors.Any())
+            try
             {
-                foreach (var error in errors)
-                {
-                    WriteLine(error);
-                }
+                Parser.Default.ParseArguments<EncryptOptions, DecryptOptions>(args)
+                    .WithParsed<EncryptOptions>(Encrypt)
+                    .WithParsed<DecryptOptions>(Decrypt)
+                    .WithNotParsed(errs => { });
             }
+            catch (Exception e)
+            {
+                WriteLine(e.Message);
+            }
+        }
+
+        private static void Decrypt(DecryptOptions opts)
+        {
+            WriteLine(opts.Value.Decrypt(opts.Region));
+        }
+
+        private static void Encrypt(EncryptOptions opts)
+        {
+            WriteLine(opts.Value.Encrypt(opts.KeyId, opts.Region));
         }
     }
 
-    [Verb("encrypt", HelpText = "encrypts a value using the key")]
-    internal class EncryptOptions
+    internal class Options
     {
-        [Option('r', "region", HelpText = "The {AWSREGION} that contains the key")]
+        [Option('r', "region", HelpText = "The {AWSREGION} that contains the key", Required = true)]
         public string Region { get; set; }
+    }
 
-        [Option('k', "keyId", HelpText = "The {KEYID} to encrypt the value against")]
+    [Verb("encrypt", HelpText = "encrypts a value using the key")]
+    internal class EncryptOptions: Options
+    {
+        [Option('k', "keyId", HelpText = "The {KEYID} to encrypt the value against", Required = true)]
         public string KeyId { get; set; }
 
-        [Option('v', "value", HelpText = "The {VALUE} to encrypt")]
+        [Option('v', "value", HelpText = "The {VALUE} to encrypt", Required = true)]
         public string Value { get; set; }
     }
 
     [Verb("decrypt", HelpText = "decrypts value")]
-    internal class DecryptOptions
+    internal class DecryptOptions: Options
     {
-        [Option('r', "region", HelpText = "The {AWSREGION} that contains the key")]
-        public string Region { get; set; }
-
-        [Option('v', "value", HelpText = "The {VALUE} to encrypt")]
+        [Option('v', "value", HelpText = "The {VALUE} to encrypt", Required = true)]
         public string Value { get; set; }
     }
 }
