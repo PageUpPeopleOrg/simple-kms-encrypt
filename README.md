@@ -50,18 +50,18 @@ TODO: dnu package add commands to be removed once the code is pushed to nuget.
 
 encrypt
 
-`sencrypt encrypt -r ap-southeast-1 -k mykey -v myvalue`
+`sec encrypt -r ap-southeast-1 -k mykey -v myvalue`
 
 decrypt
 
-`sencrypt decrypt -r ap-southeast-1 -v random-encrypted-value`
+`sec decrypt -r ap-southeast-1 -v random-encrypted-value`
 
 help
 
-`sencrypt help`
+`sec help`
 
 ### Commands to uninstall the package
 
 ```
-dnu commands uninstall sencrypt
+dnu commands uninstall sec
 ```
