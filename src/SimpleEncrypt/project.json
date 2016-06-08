@@ -2,13 +2,40 @@
   "version": "1.0.0-*",
   "description": "SimpleEncrypt Class Library",
   "authors": [ "Colin Scott", "Karthik Padmanabhan" ],
-  "tags": [ "" ],
-  "projectUrl": "",
-  "licenseUrl": "",
-  "frameworks": {
-    "net451": {}
+
+  "packOptions": {
+    "tags": [ "" ],
+    "projectUrl": "",
+    "licenseUrl": ""
   },
+
+  "buildOptions": {
+    "preserveCompilationContext": true
+  },
+
   "dependencies": {
-    "AWSSDK.KeyManagementService": "3.1.1.2"
+    "Microsoft.NETCore.App": {
+      "version": "1.0.0-rc2-3002702",
+      "type": "platform"
+    },
+    "AWSSDK.KeyManagementService": "3.1.2.2"
+  },
+
+  "commands": {
+    "sencrypt": "SimpleEncrypt.Console"
+  },
+
+  "runtimeOptions": {
+    "gcServer": true
+  },
+
+  "frameworks": {
+    "netcoreapp1.0": {
+      "imports": [
+        "dotnet5.6",
+        "dnxcore50",
+        "portable-net45+win8"
+      ]
+    }
   }
 }

@@ -1,27 +1,43 @@
 ﻿{
   "version": "1.0.0-*",
   "description": "SimpleEncrypt.Console Console Application",
-  "authors": [ "karthikp" ],
-  "tags": [ "" ],
-  "projectUrl": "",
-  "licenseUrl": "",
+  "authors": [ "Colin Scott", "Karthik Padmanabhan" ],
 
-  "compilationOptions": {
-    "emitEntryPoint": true
+  "packOptions": {
+    "tags": [ "" ],
+    "projectUrl": "",
+    "licenseUrl": ""
   },
 
-    "dependencies": {
-        "AWSSDK.KeyManagementService": "3.1.1.2",
-        "CommandLineParser": "2.0.275-beta",
-        "NDesk.Options": "0.2.1",
-        "SimpleEncrypt": "1.0.0-*"
+  "buildOptions": {
+    "emitEntryPoint": true,
+    "preserveCompilationContext": true
+  },
+
+  "dependencies": {
+    "Microsoft.NETCore.App": {
+      "version": "1.0.0-rc2-3002702",
+      "type": "platform"
     },
+    "SimpleEncrypt": "1.0.0-*",
+    "Microsoft.Extensions.CommandLineUtils": "1.0.0-rc2-final"
+  },
 
   "commands": {
     "sencrypt": "SimpleEncrypt.Console"
   },
 
+  "runtimeOptions": {
+    "gcServer": true
+  },
+
   "frameworks": {
-    "dnx451": { }    
+    "netcoreapp1.0": {
+      "imports": [
+        "dotnet5.6",
+        "dnxcore50",
+        "portable-net45+win8"
+      ]
+    }
   }
 }
