@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Extensions.CommandLineUtils;
+using Microsoft.Extensions.Configuration;
 using static System.Console;
 
 namespace SimpleEncrypt.Console
@@ -11,45 +14,67 @@ namespace SimpleEncrypt.Console
 
         public Program()
         {
-            CommandArgument key, secret, region, awskey, awsSecret, awsToken;
+            var configuration = new ConfigurationBuilder()
+                                        .AddEnvironmentVariables()
+                                        .Build();
+
+            var envAwsKey = configuration["AWS_ACCESS_KEY_ID"];
+            var envAwsSecret = configuration["AWS_SECRET_ACCESS_KEY"];
+            var envAwsToken = configuration["AWS_SESSION_TOKEN"];
+
+            var optionKey = new CommandOption("--key -k <key>", CommandOptionType.SingleValue)
+            {
+                Description = "aws kms key"
+            };
+
+            var optionsecret = new CommandOption("--secret -s <secret>", CommandOptionType.SingleValue)
+            {
+                Description = "secret to be encrypted",
+            
+            };
+
+            var optionRegion = new CommandOption("--region -r <region>", CommandOptionType.SingleValue)
+            {
+                Description = "aws region where key is located"
+            };
+
+            CommandArgument key, secret, region;
             
             app = new CommandLineApplication {Description = "Simple encryption console using kms"};
 
             app.Command("encrypt", c =>
             {
-                key = c.Argument("key", "aws kms key");
-                secret = c.Argument("value", "value to be encrypted");
-                region = c.Argument("region", "region where aws kms key is located");
-                awskey = c.Argument("awskey", "aws access key");
-                awsSecret = c.Argument("awsSecret", "aws access secret");
-                awsToken = c.Argument("awsToken", "aws access session token");
 
+                key = c.Argument("key", "aws kms key");
+                secret = c.Argument("secret", "value to be encrypted");
+                region = c.Argument("region", "region where aws kms key is located");
+                
                 c.OnExecute(async () =>
                 {
-                    await secret.Value.EncryptAsync(key.Value, region.Value, awskey.Value, awsSecret.Value, awsToken.Value);
+                    WriteLine($"Received encrypt command with key: {key.Value}, secret: {secret.Value}, region: {region.Value}");
+
+                    await secret.Value.EncryptAsync(key.Value, region.Value, envAwsKey, envAwsSecret, envAwsToken);
                     return 0;
                 });
             });
 
             app.Command("decrypt", c =>
             {
-                secret = c.Argument("value", "value to be encrypted");
+                secret = c.Argument("secret", "value to be encrypted");
                 region = c.Argument("region", "region where aws kms key is located");
-                awskey = c.Argument("awskey", "aws access key");
-                awsSecret = c.Argument("awsSecret", "aws access secret");
-                awsToken = c.Argument("awsToken", "aws access session token");
-                
 
                 c.OnExecute(async () =>
                 {
-                    await secret.Value.DecryptAsync(region.Value, awskey.Value, awsSecret.Value, awsToken.Value);
+                    WriteLine($"Received decrypt command with secret: {secret.Value}, region: {region.Value}");
+
+                    await secret.Value.DecryptAsync(region.Value, envAwsKey, envAwsSecret, envAwsToken);
                     return 0;
                 });
             });
         }
 
         public int Execute(string[] args)
-        {
+        {   
             return app.Execute(args);
         }
 
@@ -71,16 +96,6 @@ namespace SimpleEncrypt.Console
                 program.ShowHelp();
             }
         }
-
-//        private static void DecryptAsync(DecryptOptions opts)
-//        {
-//            WriteLine(opts.Value.DecryptAsync(opts.Region));
-//        }
-//
-//        private static void EncryptAsync(EncryptOptions opts)
-//        {
-//            WriteLine(opts.Value.EncryptAsync(opts.KeyId, opts.Region));
-//        }
     }
 
 //    internal class Options

@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "sencrypt": {
+      "commandName": "sencrypt",
+      "commandLineArgs": "encrypt mykey myvalue myregom"
+    },
+    "SimpleEncrypt.Console": {
+      "commandName": "Project"
+    }
+  }
+}

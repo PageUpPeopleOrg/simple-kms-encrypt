@@ -20,7 +20,8 @@
       "type": "platform"
     },
     "SimpleEncrypt": "1.0.0-*",
-    "Microsoft.Extensions.CommandLineUtils": "1.0.0-rc2-final"
+    "Microsoft.Extensions.CommandLineUtils": "1.0.0-rc2-final",
+    "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0-rc2-final"
   },
 
   "commands": {
