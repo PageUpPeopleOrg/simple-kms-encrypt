@@ -2,7 +2,7 @@
   "profiles": {
     "sencrypt": {
       "commandName": "sencrypt",
-      "commandLineArgs": "encrypt mykey myvalue myregom"
+      "commandLineArgs": "encrypt --key mykey --secret myvalue --region myregom"
     },
     "SimpleEncrypt.Console": {
       "commandName": "Project"

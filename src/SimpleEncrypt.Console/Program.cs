@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Configuration;
 using static System.Console;
@@ -10,7 +8,7 @@ namespace SimpleEncrypt.Console
     public class Program
     {
 
-        private readonly CommandLineApplication app = null;
+        private readonly CommandLineApplication app;
 
         public Program()
         {
@@ -21,53 +19,35 @@ namespace SimpleEncrypt.Console
             var envAwsKey = configuration["AWS_ACCESS_KEY_ID"];
             var envAwsSecret = configuration["AWS_SECRET_ACCESS_KEY"];
             var envAwsToken = configuration["AWS_SESSION_TOKEN"];
-
-            var optionKey = new CommandOption("--key -k <key>", CommandOptionType.SingleValue)
-            {
-                Description = "aws kms key"
-            };
-
-            var optionsecret = new CommandOption("--secret -s <secret>", CommandOptionType.SingleValue)
-            {
-                Description = "secret to be encrypted",
-            
-            };
-
-            var optionRegion = new CommandOption("--region -r <region>", CommandOptionType.SingleValue)
-            {
-                Description = "aws region where key is located"
-            };
-
-            CommandArgument key, secret, region;
             
             app = new CommandLineApplication {Description = "Simple encryption console using kms"};
 
             app.Command("encrypt", c =>
             {
 
-                key = c.Argument("key", "aws kms key");
-                secret = c.Argument("secret", "value to be encrypted");
-                region = c.Argument("region", "region where aws kms key is located");
+                var keyOption = c.Option("--key -k <key>", "aws kms key", CommandOptionType.SingleValue);
+                var secretOption = c.Option("--secret -s <secret>", "secret to be encrypted", CommandOptionType.SingleValue);
+                var regionOption = c.Option("--region -r <region>", "aws region where key is located", CommandOptionType.SingleValue);
                 
                 c.OnExecute(async () =>
                 {
-                    WriteLine($"Received encrypt command with key: {key.Value}, secret: {secret.Value}, region: {region.Value}");
+                    WriteLine($"Received encrypt command with key: {keyOption.Value()}, secret: {secretOption.Value()}, region: {regionOption.Value()}");
 
-                    await secret.Value.EncryptAsync(key.Value, region.Value, envAwsKey, envAwsSecret, envAwsToken);
+                    await secretOption.Value().EncryptAsync(keyOption.Value(), regionOption.Value(), envAwsKey, envAwsSecret, envAwsToken);
                     return 0;
                 });
             });
 
             app.Command("decrypt", c =>
             {
-                secret = c.Argument("secret", "value to be encrypted");
-                region = c.Argument("region", "region where aws kms key is located");
+                var secretOption = c.Option("--secret -s <secret>", "secret to be encrypted", CommandOptionType.SingleValue);
+                var regionOption = c.Option("--region -r <region>", "aws region where key is located", CommandOptionType.SingleValue);
 
                 c.OnExecute(async () =>
                 {
-                    WriteLine($"Received decrypt command with secret: {secret.Value}, region: {region.Value}");
+                    WriteLine($"Received decrypt command with secret: {secretOption.Value()}, region: {regionOption.Value()}");
 
-                    await secret.Value.DecryptAsync(region.Value, envAwsKey, envAwsSecret, envAwsToken);
+                    await secretOption.Value().DecryptAsync(regionOption.Value(), envAwsKey, envAwsSecret, envAwsToken);
                     return 0;
                 });
             });
@@ -97,27 +77,4 @@ namespace SimpleEncrypt.Console
             }
         }
     }
-
-//    internal class Options
-//    {
-//        [Option('r', "region", HelpText = "The {AWSREGION} that contains the key", Required = true)]
-//        public string Region { get; set; }
-//    }
-//
-//    [Verb("encrypt", HelpText = "encrypts a value using the key")]
-//    internal class EncryptOptions: Options
-//    {
-//        [Option('k', "keyId", HelpText = "The {KEYID} to encrypt the value against", Required = true)]
-//        public string KeyId { get; set; }
-//
-//        [Option('v', "value", HelpText = "The {VALUE} to encrypt", Required = true)]
-//        public string Value { get; set; }
-//    }
-//
-//    [Verb("decrypt", HelpText = "decrypts value")]
-//    internal class DecryptOptions: Options
-//    {
-//        [Option('v', "value", HelpText = "The {VALUE} to encrypt", Required = true)]
-//        public string Value { get; set; }
-//    }
 }
