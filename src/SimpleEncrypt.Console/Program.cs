@@ -19,7 +19,7 @@ namespace SimpleEncrypt.Console
             var envAwsKey = configuration["AWS_ACCESS_KEY_ID"];
             var envAwsSecret = configuration["AWS_SECRET_ACCESS_KEY"];
             var envAwsToken = configuration["AWS_SESSION_TOKEN"];
-            
+
             app = new CommandLineApplication {Description = "Simple encryption console using kms"};
 
             app.Command("encrypt", c =>

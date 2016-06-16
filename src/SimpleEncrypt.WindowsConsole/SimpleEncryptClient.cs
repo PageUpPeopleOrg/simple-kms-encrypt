@@ -5,15 +5,14 @@ using System.Threading.Tasks;
 using Amazon;
 using Amazon.KeyManagementService;
 using Amazon.KeyManagementService.Model;
-using Amazon.Runtime;
 
-namespace SimpleEncrypt
+namespace SimpleEncrypt.WindowsConsole
 {
     public static class SimpleEncryptClient
     {
-        public static async Task<string> DecryptAsync(this string encryptedValue, string regionName, string awsKey, string awsSecret, string awsToken)
+        public static async Task<string> DecryptAsync(this string encryptedValue, string regionName)
         {
-            var client = new AmazonKeyManagementServiceClient(new SessionAWSCredentials(awsKey, awsSecret, awsToken), RegionEndpoint.GetBySystemName(regionName));
+            var client = new AmazonKeyManagementServiceClient(RegionEndpoint.GetBySystemName(regionName));
 
             var ciphertestStream = new MemoryStream(Convert.FromBase64String(encryptedValue)) { Position = 0 };
 
@@ -28,9 +27,9 @@ namespace SimpleEncrypt
             return Encoding.UTF8.GetString(buffer, 0, bytesRead);
         }
 
-        public static async Task<string> EncryptAsync(this string value, string key, string regionName, string awsKey, string awsSecret, string awsToken)
+        public static async Task<string> EncryptAsync(this string value, string key, string regionName)
         {
-            var client = new AmazonKeyManagementServiceClient(new SessionAWSCredentials(awsKey, awsSecret, awsToken), RegionEndpoint.GetBySystemName(regionName));
+            var client = new AmazonKeyManagementServiceClient(RegionEndpoint.GetBySystemName(regionName));
 
             var plaintextData = new MemoryStream(Encoding.UTF8.GetBytes(value))
             {
